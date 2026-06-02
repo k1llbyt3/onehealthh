@@ -39,7 +39,7 @@ export const useUserStore = create(
       fetchHealthMetrics: async (uid) => {
         if (!uid) return
         try {
-          const q = query(collection(db, 'records'), where('userId', '==', uid))
+          const q = query(collection(db, 'records'), where('patient_uid', '==', uid))
           const snap = await getDocs(q)
           const records = snap.docs.map(d => d.data())
 

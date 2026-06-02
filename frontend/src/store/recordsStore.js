@@ -21,11 +21,11 @@ export const useRecordsStore = create((set, get) => ({
     try {
       const q = query(
         collection(db, 'records'),
-        where('patient_uid', '==', uid),
-        orderBy('date', 'desc')
+        where('patient_uid', '==', uid)
       )
       const snap = await getDocs(q)
       const records = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+      records.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
       set({ records, isLoading: false })
 
       // Build trend data from records with extracted values
