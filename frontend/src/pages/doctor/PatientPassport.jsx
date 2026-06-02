@@ -9,14 +9,14 @@ import {
   Activity, 
   FileText,
   Calendar,
-  Syringe,
-  Building,
+  TrendingUp,
   Loader2,
   Search
 } from 'lucide-react'
 import { Card, Button, Badge } from '../../components/ui'
 import { MedicalTimeline } from '../../components/doctor/passport/MedicalTimeline'
 import { ReportReviewModule } from '../../components/doctor/passport/ReportReviewModule'
+import { HealthTrendsChart } from '../../components/doctor/passport/HealthTrendsChart'
 import api from '../../services/api'
 
 export function PatientPassport() {
@@ -182,6 +182,26 @@ export function PatientPassport() {
             </div>
           </div>
 
+        </Card>
+      </motion.div>
+
+      {/* Health Trends Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15 }}
+      >
+        <Card className="p-6 border-0 shadow-sm bg-white dark:bg-slate-900 rounded-3xl">
+          <div className="flex items-center gap-2 mb-5">
+            <div className="p-2 bg-indigo-50 dark:bg-indigo-900/30 rounded-xl">
+              <TrendingUp className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">Health Trends</h3>
+              <p className="text-xs text-slate-400">Extracted from lab reports & AI analysis</p>
+            </div>
+          </div>
+          <HealthTrendsChart timeline={timeline} />
         </Card>
       </motion.div>
 

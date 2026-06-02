@@ -1,5 +1,5 @@
 import React from 'react'
-import { Activity, FileText, Pill, Stethoscope, ChevronRight } from 'lucide-react'
+import { Activity, FileText, Pill, Stethoscope, ChevronRight, ChevronDown } from 'lucide-react'
 import { Card, Button, Badge } from '../../../components/ui'
 import { formatDate } from '../../../utils/formatters'
 import { motion } from 'framer-motion'
