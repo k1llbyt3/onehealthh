@@ -270,7 +270,7 @@ export default function ReportAnalyzer() {
 
             <div className="flex flex-col sm:flex-row gap-3">
               <Button className="flex-1" leftIcon={<Save size={16} />} onClick={handleSave}>Save to Passport</Button>
-              <Button variant="outline" className="flex-1" leftIcon={<Download size={16} />}>Download PDF Summary</Button>
+              <Button variant="outline" className="flex-1" leftIcon={<Download size={16} />} onClick={() => window.print()}>Download PDF Summary</Button>
               <Button variant="outline" leftIcon={<RotateCcw size={16} />} onClick={handleReset}>Analyze Another</Button>
             </div>
           </motion.div>

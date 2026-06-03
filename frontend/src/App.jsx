@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, Component } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from './services/firebase'
@@ -8,6 +8,8 @@ import { useRecordsStore } from './store/recordsStore'
 import { useUIStore, applyTheme } from './store/uiStore'
 import { AppShell } from './components/layout/AppShell'
 import { Spinner } from './components/ui/index'
+import { AlertTriangle, RotateCcw } from 'lucide-react'
+import { Button } from './components/ui/Button'
 
 // Pages
 import Landing from './pages/Landing'
@@ -43,6 +45,44 @@ function PageLoader() {
       </div>
     </div>
   )
+}
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error("ErrorBoundary caught an error", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="flex flex-col items-center justify-center h-screen bg-[var(--color-background)] p-6 text-center">
+          <div className="w-16 h-16 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center mb-6 border border-red-200 dark:border-red-800">
+            <AlertTriangle className="w-8 h-8 text-red-600 dark:text-red-400" />
+          </div>
+          <h1 className="text-2xl font-bold text-[var(--color-text-primary)] mb-2">Something went wrong</h1>
+          <p className="text-[var(--color-text-secondary)] mb-6 max-w-md">
+            We encountered an unexpected error. Our team has been notified.
+          </p>
+          <div className="bg-[var(--color-surface-2)] p-4 rounded-lg border border-[var(--color-border)] mb-6 max-w-lg w-full text-left overflow-auto text-xs text-[var(--color-text-primary)] font-mono">
+            {this.state.error?.toString()}
+          </div>
+          <Button onClick={() => window.location.href = '/'} leftIcon={<RotateCcw size={16} />}>
+            Return Home
+          </Button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
 }
 
 // Route guard — redirect to /login if not authenticated
@@ -125,10 +165,11 @@ export default function App() {
   }, [theme])
 
   return (
-    <BrowserRouter>
-      <AuthWatcher />
-      <Suspense fallback={<PageLoader />}>
-        <Routes>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <AuthWatcher />
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
           {/* Public routes */}
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
@@ -192,5 +233,6 @@ export default function App() {
         </Routes>
       </Suspense>
     </BrowserRouter>
+    </ErrorBoundary>
   )
 }

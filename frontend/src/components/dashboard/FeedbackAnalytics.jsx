@@ -78,6 +78,7 @@ export default function FeedbackAnalytics() {
   const [loading, setLoading] = useState(false)
   const [stats, setStats] = useState(null)
   const [statsLoading, setStatsLoading] = useState(true)
+  const [result, setResult] = useState(null)
 
   useEffect(() => {
     const fetchStats = async () => {

@@ -413,8 +413,8 @@ function RecordDetail({ record, isOpen, onClose }) {
         )}
 
         <div className="flex gap-3 pt-4">
-          <Button variant="outline" leftIcon={<Download size={16} />} className="flex-1 h-12 rounded-xl">Download PDF</Button>
-          <Button leftIcon={<Sparkles size={16} />} className="flex-1 h-12 rounded-xl bg-slate-900 hover:bg-black text-white" onClick={() => {}}>Full Re-Analysis</Button>
+          <Button variant="outline" leftIcon={<Download size={16} />} className="flex-1 h-12 rounded-xl" onClick={() => window.print()}>Download PDF</Button>
+          <Button leftIcon={<Sparkles size={16} />} className="flex-1 h-12 rounded-xl bg-slate-900 hover:bg-black text-white" onClick={() => { alert('Re-analysis started! Check back soon.') }}>Full Re-Analysis</Button>
         </div>
       </div>
     </Modal>

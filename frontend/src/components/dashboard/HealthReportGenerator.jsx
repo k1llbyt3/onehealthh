@@ -347,7 +347,7 @@ export default function HealthReportGenerator() {
 
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button className="flex-1" leftIcon={<Download size={16} />} onClick={() => toast.success('Downloading', 'PDF report download started.')}>
+              <Button className="flex-1" leftIcon={<Download size={16} />} onClick={() => { window.print(); toast.success('Downloading', 'PDF report download started.'); }}>
                 Download PDF
               </Button>
               <Button variant="secondary" className="flex-1" leftIcon={<Share2 size={16} />} onClick={() => toast.info('Share Link', 'Share link copied to clipboard.')}>
